@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.ValidationRules.FluentValid;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Hashing;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Entities.Concrete;
 using Entities.Dtos;
 
@@ -21,13 +24,18 @@ namespace Business.Concrete
             _userService = userService;
         }
 
-        public string Register(AuthDto authDto)
+        public IResult Register(AuthDto authDto)
         {
             UserValidator validator = new UserValidator();
-            ValidationTool.Validate(validator,authDto);
+            ValidationTool.Validate(validator, authDto);
 
+            IResult result = BusinessRules.Run(CheckIfEmailExist(authDto.Email), CheckImageSizeIsLessThanOneMb(2));
+            if (!result.Success)
+            {
+                return result;
+            }
             _userService.add(authDto);
-            return "";
+            return new SuccessResult("kulanıcı kaydı başarıyla tamamlandı");
         }
 
         public string Login(LoginAuthDto authDto)
@@ -37,5 +45,25 @@ namespace Business.Concrete
                 HashingHelper.VerifyPasswordHash(authDto.Password, user.PasswordHash, user.PasswordSalt);
             return verifyPassword ? "kullacısı girişi başarılı" : "kullanıcı bilgileri hatalı";
         }
+
+
+
+        private IResult CheckIfEmailExist(string email)
+        {
+            var user = _userService.GetByEmail(email);
+            if (user != null)
+            {
+                return new ErrorResult("Bu mail adresi daha önce kullanılmış");
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckImageSizeIsLessThanOneMb(int imgSize)
+        {
+            if (imgSize > 1)
+                return new ErrorResult("yüklediğiniz resim boyutu en fazla 1mb olmalıdır");
+            return new SuccessResult();
+        }
+
     }
 }

@@ -19,8 +19,8 @@ namespace WepApi.Controllers
         [HttpPost("Register")]
         public IActionResult register(AuthDto authDto)
         {
-            _authService.Register(authDto);
-            return Ok("kullanıcı kayıt işlemi başarılı");
+           var result = _authService.Register(authDto);
+           return result.Success ? Ok(result.Message) : BadRequest(result.Message);
         }
 
         [HttpPost("Login")]
