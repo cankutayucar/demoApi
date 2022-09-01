@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
+using Business.ValidationRules.FluentValid;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Hashing;
 using Entities.Concrete;
 using Entities.Dtos;
@@ -19,9 +21,13 @@ namespace Business.Concrete
             _userService = userService;
         }
 
-        public void Register(AuthDto authDto)
+        public string Register(AuthDto authDto)
         {
+            UserValidator validator = new UserValidator();
+            ValidationTool.Validate(validator,authDto);
+
             _userService.add(authDto);
+            return "";
         }
 
         public string Login(LoginAuthDto authDto)

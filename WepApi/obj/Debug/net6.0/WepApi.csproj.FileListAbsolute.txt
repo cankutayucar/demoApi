@@ -67,3 +67,6 @@ C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\Business.pdb
 C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\Core.pdb
 C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\DataAccess.pdb
 C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\Entities.pdb
+C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\Cankutay\Desktop\Demo1\DemoBase\WepApi\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
