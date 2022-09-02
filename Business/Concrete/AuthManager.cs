@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.ValidationRules.FluentValid;
+using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Hashing;
@@ -24,10 +25,9 @@ namespace Business.Concrete
             _userService = userService;
         }
 
+        [ValidationAspects(typeof(UserValidator))]
         public IResult Register(AuthDto authDto)
         {
-            UserValidator validator = new UserValidator();
-            ValidationTool.Validate(validator, authDto);
 
             IResult result = BusinessRules.Run(CheckIfEmailExist(authDto.Email), CheckImageSizeIsLessThanOneMb(2));
             if (!result.Success)
