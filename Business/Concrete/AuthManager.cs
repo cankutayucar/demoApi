@@ -9,10 +9,11 @@ using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Hashing;
-using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Entities.Concrete;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Http;
+using IResult = Core.Utilities.Results.Abstract.IResult;
 
 namespace Business.Concrete
 {
@@ -28,8 +29,11 @@ namespace Business.Concrete
         [ValidationAspects(typeof(UserValidator))]
         public IResult Register(AuthDto authDto)
         {
-
-            IResult result = BusinessRules.Run(CheckIfEmailExist(authDto.Email), CheckImageSizeIsLessThanOneMb(2));
+            IResult result = BusinessRules.Run(
+                CheckIfEmailExist(authDto.Email),
+                CheckImageExtensionsAllow(authDto.image.FileName),
+                CheckImageSizeIsLessThanOneMb(authDto.image.Length)
+            );
             if (!result.Success)
             {
                 return result;
@@ -58,12 +62,28 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult CheckImageSizeIsLessThanOneMb(int imgSize)
+        private IResult CheckImageSizeIsLessThanOneMb(long imgSize)
         {
-            if (imgSize > 1)
+            decimal size = Convert.ToDecimal(imgSize * 0.000001);
+            if (size > 1)
                 return new ErrorResult("yüklediğiniz resim boyutu en fazla 1mb olmalıdır");
             return new SuccessResult();
         }
 
+        private IResult CheckImageExtensionsAllow(string ImageName)
+        {
+            string fileName = ImageName;
+            var ext = fileName.Substring(fileName.LastIndexOf('.'));
+            var extension = ext.ToLower();
+            List<string> allowFileExtensions = new List<string>()
+            {
+                ".jpg", ".jpeg", ".gif", ".png"
+            };
+            if (!allowFileExtensions.Contains(extension))
+            {
+                return new ErrorResult("eklediğiniz resim türü geçersiz");
+            }
+            return new SuccessResult();
+        }
     }
 }

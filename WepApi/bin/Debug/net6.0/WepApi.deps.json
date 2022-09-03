@@ -566,6 +566,9 @@
         }
       },
       "Entities/1.0.0": {
+        "dependencies": {
+          "Swashbuckle.AspNetCore": "6.2.3"
+        },
         "runtime": {
           "Entities.dll": {}
         }

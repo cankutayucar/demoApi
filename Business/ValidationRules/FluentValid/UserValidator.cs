@@ -15,7 +15,7 @@ namespace Business.ValidationRules.FluentValid
         {
             RuleFor(u => u.Name).NotEmpty().WithMessage("Kullanıcı adı boş geçilemez");
             RuleFor(u => u.Email).NotEmpty().WithMessage("email adı boş geçilemez");
-            RuleFor(u => u.ImageUrl).NotEmpty().WithMessage("Kullanıcı resmi adı boş geçilemez");
+            RuleFor(u => u.image).NotEmpty().WithMessage("Kullanıcı resmi adı boş geçilemez");
             RuleFor(u => u.Password).NotEmpty().WithMessage("şifre adı boş geçilemez");
             RuleFor(u => u.Password).MinimumLength(6).WithMessage("şifre en az 6 karakter olmalıdır");
         }

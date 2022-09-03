@@ -17,7 +17,7 @@ namespace WepApi.Controllers
         }
 
         [HttpPost("Register")]
-        public IActionResult register(AuthDto authDto)
+        public IActionResult register([FromForm]AuthDto authDto)
         {
            var result = _authService.Register(authDto);
            return result.Success ? Ok(result.Message) : BadRequest(result.Message);
