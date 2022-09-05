@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HsOLOI9Z/+JV81YN0n4Du3548oTd7C4FA6TrRpFQqmdv//NYwpgsA5hO5F5ycKoBgdIX+XHDYaZFMUc2BoSLeQ==",
+  "dgSpecHash": "qycRcWBBN+l6On0ee3YquOYaeX8xyL8t6WyZ03mU24rRuj0X/FKc70rQ6VPJ08SZKBiP029B5u+5+gkiZQhnvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Cankutay\\Desktop\\Demo1\\DemoBase\\WepApi\\WepApi.csproj",
   "expectedPackageFiles": [
@@ -40,6 +40,7 @@
     "C:\\Users\\Cankutay\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Cankutay\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Cankutay\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\Cankutay\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Cankutay\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Cankutay\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
     "C:\\Users\\Cankutay\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",

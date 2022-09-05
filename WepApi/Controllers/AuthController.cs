@@ -15,7 +15,7 @@ namespace WepApi.Controllers
         {
             _authService = authService;
         }
-
+        
         [HttpPost("Register")]
         public IActionResult register([FromForm]AuthDto authDto)
         {
