@@ -11,6 +11,7 @@ using Castle.DynamicProxy;
 using Core.Dal;
 using Core.Dal.EntityFramework;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -32,6 +33,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<AuthManager>().As<IAuthService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<TokenHandler>().As<ITokenHandler>().InstancePerLifetimeScope();
 
             #region aspect di
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

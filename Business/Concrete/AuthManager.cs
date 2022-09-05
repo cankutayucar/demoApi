@@ -9,7 +9,9 @@ using Core.Aspects.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Hashing;
+using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Core.Utilities.Security.JWT;
 using Entities.Concrete;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -20,11 +22,13 @@ namespace Business.Concrete
     public class AuthManager : IAuthService
     {
         private readonly IUserService _userService;
-
-        public AuthManager(IUserService userService)
+        private readonly ITokenHandler _tokenHandler;
+        public AuthManager(IUserService userService, ITokenHandler tokenHandler)
         {
             _userService = userService;
+            _tokenHandler = tokenHandler;
         }
+
 
         [ValidationAspects(typeof(UserValidator))]
         public IResult Register(AuthDto authDto)
@@ -42,12 +46,17 @@ namespace Business.Concrete
             return new SuccessResult("kulanıcı kaydı başarıyla tamamlandı");
         }
 
-        public string Login(LoginAuthDto authDto)
+        public IDataResult<Token> Login(LoginAuthDto authDto)
         {
             User user = _userService.GetByEmail(authDto.Email);
             var verifyPassword =
                 HashingHelper.VerifyPasswordHash(authDto.Password, user.PasswordHash, user.PasswordSalt);
-            return verifyPassword ? "kullacısı girişi başarılı" : "kullanıcı bilgileri hatalı";
+            if (verifyPassword)
+            {
+                var token = _tokenHandler.createToken(user, _userService.UserOperationClaims(user.Id));
+                return new SuccessDataResult<Token>(token);
+            }
+            return new ErrorDataResult<Token>("Kullanıcı mail veya şifre hatalı");
         }
 
 

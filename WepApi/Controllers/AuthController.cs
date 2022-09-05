@@ -26,7 +26,9 @@ namespace WepApi.Controllers
         [HttpPost("Login")]
         public IActionResult Login(LoginAuthDto authDto)
         {
-            return Ok(_authService.Login(authDto));
+            var result = _authService.Login(authDto);
+            if (result.Success) return Ok(result.Data); 
+            return BadRequest(result.Message);
         }
     }
 }
